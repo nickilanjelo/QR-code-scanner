@@ -7,7 +7,7 @@ import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject
 
 @HiltAndroidApp
-class CameraXCodelabApp: Application() {
+class QRCodeScannerApp: Application() {
     @Inject lateinit var cicerone: Cicerone<Router>
     @Inject lateinit var router: Router
 
@@ -21,7 +21,7 @@ class CameraXCodelabApp: Application() {
     }
 
     companion object {
-        internal lateinit var INSTANCE: CameraXCodelabApp
+        internal lateinit var INSTANCE: QRCodeScannerApp
             private set
     }
 }

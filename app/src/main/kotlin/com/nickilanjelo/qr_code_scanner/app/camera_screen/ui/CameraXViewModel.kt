@@ -2,6 +2,7 @@ package com.nickilanjelo.qr_code_scanner.app.camera_screen.ui
 
 import androidx.lifecycle.*
 import com.github.terrakok.cicerone.Router
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class CameraXViewModel(
@@ -9,14 +10,9 @@ class CameraXViewModel(
     private val resultKey: String?
 ) : ViewModel() {
 
-    private val _scannedString: MutableLiveData<String> = MutableLiveData()
-    val scannedString: LiveData<String>
-        get() = _scannedString
-
     fun onResult(result: String?) {
-        _scannedString.value = result
-
         viewModelScope.launch {
+            delay(1000)
             resultKey?.let {
                 router.sendResult(resultKey, result ?: "")
             }
@@ -25,6 +21,7 @@ class CameraXViewModel(
     }
 }
 
+@Suppress("UNCHECKED_CAST")
 class CameraXViewModelFactory(
     private val router: Router,
     private val resultKey: String?

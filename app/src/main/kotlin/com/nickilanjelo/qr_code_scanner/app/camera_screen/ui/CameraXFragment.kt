@@ -12,9 +12,9 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.google.mlkit.vision.barcode.BarcodeScanner
-import com.nickilanjelo.qr_code_scanner.app.CameraXCodelabApp
+import com.nickilanjelo.qr_code_scanner.app.QRCodeScannerApp
 import com.nickilanjelo.qr_code_scanner.app.camera_screen.analyzer.QRCodeAnalyzer
-import com.nickilanjelo.cameraxcodelab.databinding.FragmentCameraXBinding
+import com.nickilanjelo.qrcodescanner.databinding.FragmentCameraXBinding
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
@@ -41,13 +41,10 @@ class CameraXFragment: Fragment() {
         get() = _binding!!
 
     private val viewModel: CameraXViewModel by viewModels {
-        CameraXViewModelFactory(CameraXCodelabApp.INSTANCE.router, arguments?.getString(RESULT_KEY_TAG))
+        CameraXViewModelFactory(QRCodeScannerApp.INSTANCE.router, arguments?.getString(RESULT_KEY_TAG))
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        viewModel.scannedString.observe(viewLifecycleOwner) { code ->
-            binding.scanProgress.visibility = View.GONE
-        }
         _binding = FragmentCameraXBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -72,14 +69,12 @@ class CameraXFragment: Fragment() {
 
             cameraProviderFuture.addListener(
                 {
-                    // Used to bind the lifecycle of cameras to the lifecycle owner
                     val cameraProvider: ProcessCameraProvider = cameraProviderFuture.get()
 
-                    // Preview
                     val preview = Preview.Builder()
                         .build()
-                        .also {
-                            it.setSurfaceProvider(binding.viewFinder.surfaceProvider)
+                        .also { preview ->
+                            preview.setSurfaceProvider(binding.viewFinder.surfaceProvider)
                         }
 
                     val imageCapture = ImageCapture.Builder()
@@ -88,25 +83,21 @@ class CameraXFragment: Fragment() {
                     val imageAnalyzer = ImageAnalysis.Builder()
                         .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
                         .build()
-                        .also {
-                            it.setAnalyzer(cameraExecutor, QRCodeAnalyzer(scanner) { barcode ->
+                        .also { analysis ->
+                            analysis.setAnalyzer(cameraExecutor, QRCodeAnalyzer(scanner) { barcode ->
                                 viewModel.onResult(barcode.rawValue)
                             })
                         }
 
-                    // Select back camera as a default
                     val cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
 
                     try {
-                        // Unbind use cases before rebinding
                         cameraProvider.unbindAll()
-
-                        // Bind use cases to camera
                         cameraProvider.bindToLifecycle(
                             this, cameraSelector, preview, imageCapture, imageAnalyzer)
 
-                    } catch(exc: Exception) {
-                        Log.e(this::class.simpleName, "Use case binding failed", exc)
+                    } catch(error: Throwable) {
+                        Log.e(this::class.simpleName, "Use case binding failed", error)
                     }
 
                 }, ContextCompat.getMainExecutor(it)

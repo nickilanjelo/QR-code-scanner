@@ -3,10 +3,10 @@ package com.nickilanjelo.qr_code_scanner.app.main_activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.github.terrakok.cicerone.androidx.AppNavigator
-import com.nickilanjelo.cameraxcodelab.R
-import com.nickilanjelo.qr_code_scanner.app.CameraXCodelabApp
+import com.nickilanjelo.qrcodescanner.R
+import com.nickilanjelo.qr_code_scanner.app.QRCodeScannerApp
 import com.nickilanjelo.qr_code_scanner.app.screens.Screens
-import com.nickilanjelo.cameraxcodelab.databinding.ActivityMainBinding
+import com.nickilanjelo.qrcodescanner.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -20,22 +20,22 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        CameraXCodelabApp.INSTANCE.router.replaceScreen(Screens.MainScreen())
+        QRCodeScannerApp.INSTANCE.router.replaceScreen(Screens.MainScreen())
     }
 
     override fun onResumeFragments() {
         super.onResumeFragments()
 
-        CameraXCodelabApp.INSTANCE.navigationHolder.setNavigator(navigator)
+        QRCodeScannerApp.INSTANCE.navigationHolder.setNavigator(navigator)
     }
 
     override fun onPause() {
         super.onPause()
 
-        CameraXCodelabApp.INSTANCE.navigationHolder.removeNavigator()
+        QRCodeScannerApp.INSTANCE.navigationHolder.removeNavigator()
     }
 
     override fun onBackPressed() {
-        CameraXCodelabApp.INSTANCE.router.exit()
+        QRCodeScannerApp.INSTANCE.router.exit()
     }
 }

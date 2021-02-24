@@ -11,8 +11,8 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.nickilanjelo.qr_code_scanner.app.CameraXCodelabApp
-import com.nickilanjelo.cameraxcodelab.databinding.FragmentMainBinding
+import com.nickilanjelo.qr_code_scanner.app.QRCodeScannerApp
+import com.nickilanjelo.qrcodescanner.databinding.FragmentMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -29,7 +29,7 @@ class MainFragment: Fragment() {
 
     private val viewModel: MainViewModel by viewModels {
         MainViewModelFactory(
-            router = CameraXCodelabApp.INSTANCE.router
+            router = QRCodeScannerApp.INSTANCE.router
         )
     }
 
@@ -50,7 +50,7 @@ class MainFragment: Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentMainBinding.inflate(inflater, container, false)
 
-        CameraXCodelabApp.INSTANCE.router.setResultListener(SCANNING_RESULT_TAG) { result ->
+        QRCodeScannerApp.INSTANCE.router.setResultListener(SCANNING_RESULT_TAG) { result ->
             viewModel.onResultReceived(result as String)
         }
 
@@ -83,7 +83,7 @@ class MainFragment: Fragment() {
     }
 
     private val isCameraPermissionGranted = REQUIRED_PERMISSIONS.all {
-        ContextCompat.checkSelfPermission(CameraXCodelabApp.INSTANCE.baseContext, it) == PackageManager.PERMISSION_GRANTED
+        ContextCompat.checkSelfPermission(QRCodeScannerApp.INSTANCE.baseContext, it) == PackageManager.PERMISSION_GRANTED
     }
 
     override fun onDestroyView() {
