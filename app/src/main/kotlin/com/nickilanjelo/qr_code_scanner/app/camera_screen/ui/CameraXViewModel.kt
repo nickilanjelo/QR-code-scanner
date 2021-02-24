@@ -1,10 +1,7 @@
-package com.nickilanjelo.cameraxcodelab.app.camera_screen.ui
+package com.nickilanjelo.qr_code_scanner.app.camera_screen.ui
 
-import androidx.camera.core.ImageProxy
 import androidx.lifecycle.*
 import com.github.terrakok.cicerone.Router
-import com.nickilanjelo.cameraxcodelab.app.camera_screen.analyzer.QRCodeAnalyzer
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class CameraXViewModel(

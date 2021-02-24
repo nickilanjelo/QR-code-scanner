@@ -1,4 +1,4 @@
-package com.nickilanjelo.cameraxcodelab.app.camera_screen.ui
+package com.nickilanjelo.qr_code_scanner.app.camera_screen.ui
 
 import android.os.Bundle
 import android.util.Log
@@ -12,8 +12,8 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.google.mlkit.vision.barcode.BarcodeScanner
-import com.nickilanjelo.cameraxcodelab.app.CameraXCodelabApp
-import com.nickilanjelo.cameraxcodelab.app.camera_screen.analyzer.QRCodeAnalyzer
+import com.nickilanjelo.qr_code_scanner.app.CameraXCodelabApp
+import com.nickilanjelo.qr_code_scanner.app.camera_screen.analyzer.QRCodeAnalyzer
 import com.nickilanjelo.cameraxcodelab.databinding.FragmentCameraXBinding
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.concurrent.ExecutorService

@@ -11,12 +11,12 @@
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:name=".app.CameraXCodelabApp"
+        android:name="com.nickilanjelo.qr_code_scanner.app.CameraXCodelabApp"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppStyle">
 
-        <activity android:name="com.nickilanjelo.cameraxcodelab.app.main_activity.MainActivity">
+        <activity android:name="com.nickilanjelo.qr_code_scanner.app.main_activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

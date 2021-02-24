@@ -1,4 +1,4 @@
-package com.nickilanjelo.cameraxcodelab.app.camera_screen.analyzer
+package com.nickilanjelo.qr_code_scanner.app.camera_screen.analyzer
 
 import android.annotation.SuppressLint
 import android.util.Log
@@ -7,7 +7,6 @@ import androidx.camera.core.ImageProxy
 import com.google.mlkit.vision.barcode.Barcode
 import com.google.mlkit.vision.barcode.BarcodeScanner
 import com.google.mlkit.vision.common.InputImage
-import javax.inject.Inject
 
 class QRCodeAnalyzer(
     private val scanner: BarcodeScanner,

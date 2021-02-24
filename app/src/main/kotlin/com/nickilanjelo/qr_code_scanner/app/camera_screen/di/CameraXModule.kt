@@ -1,10 +1,9 @@
-package com.nickilanjelo.cameraxcodelab.app.camera_screen.di
+package com.nickilanjelo.qr_code_scanner.app.camera_screen.di
 
 import com.google.mlkit.vision.barcode.Barcode
 import com.google.mlkit.vision.barcode.BarcodeScanner
 import com.google.mlkit.vision.barcode.BarcodeScannerOptions
 import com.google.mlkit.vision.barcode.BarcodeScanning
-import com.nickilanjelo.cameraxcodelab.app.camera_screen.analyzer.QRCodeAnalyzer
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

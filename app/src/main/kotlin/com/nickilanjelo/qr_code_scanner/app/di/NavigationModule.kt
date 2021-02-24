@@ -1,4 +1,4 @@
-package com.nickilanjelo.cameraxcodelab.app.di
+package com.nickilanjelo.qr_code_scanner.app.di
 
 import com.github.terrakok.cicerone.Cicerone
 import com.github.terrakok.cicerone.Router

@@ -1,8 +1,8 @@
-package com.nickilanjelo.cameraxcodelab.app.screens
+package com.nickilanjelo.qr_code_scanner.app.screens
 
 import com.github.terrakok.cicerone.androidx.FragmentScreen
-import com.nickilanjelo.cameraxcodelab.app.camera_screen.ui.CameraXFragment
-import com.nickilanjelo.cameraxcodelab.app.main_screen.ui.MainFragment
+import com.nickilanjelo.qr_code_scanner.app.camera_screen.ui.CameraXFragment
+import com.nickilanjelo.qr_code_scanner.app.main_screen.ui.MainFragment
 
 object Screens {
     fun MainScreen() = FragmentScreen { MainFragment() }

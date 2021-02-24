@@ -1,21 +1,17 @@
-package com.nickilanjelo.cameraxcodelab.app.main_screen.ui
+package com.nickilanjelo.qr_code_scanner.app.main_screen.ui
 
 import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
-import com.nickilanjelo.cameraxcodelab.app.CameraXCodelabApp
-import com.nickilanjelo.cameraxcodelab.app.camera_screen.ui.CameraXFragment
+import com.nickilanjelo.qr_code_scanner.app.CameraXCodelabApp
 import com.nickilanjelo.cameraxcodelab.databinding.FragmentMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 

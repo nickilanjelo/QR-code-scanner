@@ -1,11 +1,11 @@
-package com.nickilanjelo.cameraxcodelab.app.main_screen.ui
+package com.nickilanjelo.qr_code_scanner.app.main_screen.ui
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.github.terrakok.cicerone.Router
-import com.nickilanjelo.cameraxcodelab.app.screens.Screens
+import com.nickilanjelo.qr_code_scanner.app.screens.Screens
 
 class MainViewModel(
     private val router: Router

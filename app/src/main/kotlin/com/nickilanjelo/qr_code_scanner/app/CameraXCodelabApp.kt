@@ -1,4 +1,4 @@
-package com.nickilanjelo.cameraxcodelab.app
+package com.nickilanjelo.qr_code_scanner.app
 
 import android.app.Application
 import com.github.terrakok.cicerone.Cicerone

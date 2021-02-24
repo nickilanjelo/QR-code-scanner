@@ -1,11 +1,11 @@
-package com.nickilanjelo.cameraxcodelab.app.main_activity
+package com.nickilanjelo.qr_code_scanner.app.main_activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.github.terrakok.cicerone.androidx.AppNavigator
 import com.nickilanjelo.cameraxcodelab.R
-import com.nickilanjelo.cameraxcodelab.app.CameraXCodelabApp
-import com.nickilanjelo.cameraxcodelab.app.screens.Screens
+import com.nickilanjelo.qr_code_scanner.app.CameraXCodelabApp
+import com.nickilanjelo.qr_code_scanner.app.screens.Screens
 import com.nickilanjelo.cameraxcodelab.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
