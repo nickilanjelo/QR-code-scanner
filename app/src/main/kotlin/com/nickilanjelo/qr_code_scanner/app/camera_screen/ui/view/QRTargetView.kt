@@ -18,7 +18,7 @@ class QRTargetView @JvmOverloads constructor(
     private val transparentGrayPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.FILL
         color = Color.GRAY
-        alpha = 127
+        alpha = 200
     }
     private val transparentPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.FILL
@@ -29,7 +29,7 @@ class QRTargetView @JvmOverloads constructor(
         style = Paint.Style.STROKE
         strokeWidth = paintWidth
         color = ContextCompat.getColor(context, R.color.purple_500)
-        xfermode = PorterDuffXfermode(PorterDuff.Mode.ADD)
+        xfermode = PorterDuffXfermode(PorterDuff.Mode.SRC_IN)
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
