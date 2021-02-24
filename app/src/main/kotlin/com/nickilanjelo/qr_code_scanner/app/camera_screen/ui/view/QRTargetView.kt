@@ -5,12 +5,32 @@ import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
 import android.view.View
+import androidx.core.content.ContextCompat
+import com.nickilanjelo.qrcodescanner.R
 
 class QRTargetView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyle: Int = 0
 ) : View(context, attrs, defStyle) {
+
+    private val paintWidth = 20f
+    private val transparentGrayPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+        style = Paint.Style.FILL
+        color = Color.GRAY
+        alpha = 127
+    }
+    private val transparentPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+        style = Paint.Style.FILL
+        color = Color.TRANSPARENT
+        xfermode = PorterDuffXfermode(PorterDuff.Mode.SRC_IN)
+    }
+    private val greenPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+        style = Paint.Style.STROKE
+        strokeWidth = paintWidth
+        color = ContextCompat.getColor(context, R.color.purple_500)
+        xfermode = PorterDuffXfermode(PorterDuff.Mode.ADD)
+    }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         val metrics = context.resources.displayMetrics
@@ -23,23 +43,6 @@ class QRTargetView @JvmOverloads constructor(
     @SuppressLint("DrawAllocation")
     override fun onDraw(canvas: Canvas?) {
         canvas?.let {
-            val paintWidth = 20f
-            val transparentGrayPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-                style = Paint.Style.FILL
-                color = Color.GRAY
-                alpha = 127
-            }
-            val transparentPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-                style = Paint.Style.FILL
-                color = Color.TRANSPARENT
-                xfermode = PorterDuffXfermode(PorterDuff.Mode.SRC_IN)
-            }
-            val greenPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-                style = Paint.Style.STROKE
-                strokeWidth = paintWidth
-                color = Color.GREEN
-                xfermode = PorterDuffXfermode(PorterDuff.Mode.ADD)
-            }
             val metrics = context.resources.displayMetrics
             val width = metrics.widthPixels
             val height = metrics.heightPixels
@@ -57,56 +60,61 @@ class QRTargetView @JvmOverloads constructor(
             val rect = Rect(x, y, x + viewSize, y + viewSize)
             canvas.drawRect(rect, transparentPaint)
 
-            val lines = floatArrayOf(
-                //Top left
-                x.toFloat(),
-                (y + viewSize / 3).toFloat(),
-                x.toFloat(),
-                y - paintWidth / 2,
+            val cornersPath = Path().also {
+                it.moveTo(
+                    x.toFloat(),
+                    (y + viewSize / 3).toFloat()
+                )
+                it.lineTo(
+                    x.toFloat(),
+                    y.toFloat()
+                )
+                it.lineTo(
+                    x.toFloat() + viewSize / 3,
+                    y.toFloat()
+                )
 
-                x - paintWidth / 2,
-                y.toFloat(),
-                x.toFloat() + viewSize / 3,
-                y.toFloat(),
+                it.moveTo(
+                    x.toFloat(),
+                    y + ((viewSize * 2) / 3).toFloat()
+                )
+                it.lineTo(
+                    x.toFloat(),
+                    (y + viewSize).toFloat()
+                )
+                it.lineTo(
+                    (x + (viewSize / 3)).toFloat(),
+                    (y + viewSize).toFloat()
+                )
 
-                //Bottom left
-                x.toFloat(),
-                y + ((viewSize * 2) / 3).toFloat(),
-                x.toFloat(),
-                y + viewSize + paintWidth / 2,
+                it.moveTo(
+                    (x + ((viewSize * 2) / 3)).toFloat(),
+                    y.toFloat()
+                )
+                it.lineTo(
+                    (x + viewSize).toFloat(),
+                    y.toFloat()
+                )
+                it.lineTo(
+                    (x+ viewSize).toFloat(),
+                    (y + (viewSize / 3)).toFloat()
+                )
 
-                x.toFloat(),
-                (y + viewSize).toFloat(),
-                x + viewSize / 3 - paintWidth / 2,
-                (y + viewSize).toFloat(),
+                it.moveTo(
+                    (x + viewSize).toFloat(),
+                    (y + ((viewSize * 2) / 3)).toFloat()
+                )
+                it.lineTo(
+                    (x + viewSize).toFloat(),
+                    (y + viewSize).toFloat()
+                )
+                it.lineTo(
+                    (x + ((viewSize * 2) / 3)).toFloat(),
+                    (y + viewSize).toFloat()
+                )
+            }
 
-                //Top right
-                (x + ((viewSize * 2) / 3)).toFloat(),
-                y.toFloat(),
-                (x + viewSize).toFloat(),
-                y.toFloat(),
-
-                (x + viewSize).toFloat(),
-                y - paintWidth / 2,
-                (x + viewSize).toFloat(),
-                (y + viewSize / 3).toFloat(),
-
-                //Bottom right
-                x + ((viewSize * 2) / 3).toFloat(),
-                (y + viewSize).toFloat(),
-                x + viewSize + paintWidth / 2,
-                (y + viewSize).toFloat(),
-
-                (x + viewSize).toFloat(),
-                y + ((viewSize * 2) / 3).toFloat(),
-                (x + viewSize).toFloat(),
-                y + viewSize + paintWidth / 2
-            )
-
-            canvas.drawLines(
-                lines,
-                greenPaint
-            )
+            canvas.drawPath(cornersPath, greenPaint)
 
             invalidate()
         }
