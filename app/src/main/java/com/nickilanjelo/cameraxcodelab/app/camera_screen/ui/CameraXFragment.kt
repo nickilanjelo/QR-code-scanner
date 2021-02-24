@@ -44,7 +44,27 @@ class CameraXFragment: Fragment() {
         CameraXViewModelFactory(CameraXCodelabApp.INSTANCE.router, arguments?.getString(RESULT_KEY_TAG))
     }
 
-    private var imageCapture: ImageCapture? = null
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        viewModel.scannedString.observe(viewLifecycleOwner) { code ->
+            binding.scanProgress.visibility = View.GONE
+        }
+        _binding = FragmentCameraXBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        startCamera()
+
+        cameraExecutor = Executors.newSingleThreadExecutor()
+    }
+
+    override fun onDestroyView() {
+        _binding = null
+
+        super.onDestroyView()
+    }
 
     private fun startCamera() {
         context?.let {
@@ -62,7 +82,7 @@ class CameraXFragment: Fragment() {
                             it.setSurfaceProvider(binding.viewFinder.surfaceProvider)
                         }
 
-                    imageCapture = ImageCapture.Builder()
+                    val imageCapture = ImageCapture.Builder()
                         .build()
 
                     val imageAnalyzer = ImageAnalysis.Builder()
@@ -70,8 +90,7 @@ class CameraXFragment: Fragment() {
                         .build()
                         .also {
                             it.setAnalyzer(cameraExecutor, QRCodeAnalyzer(scanner) { barcode ->
-                                Log.d("myTag", barcode.rawValue)
-                                //viewModel.onResult(barcode.rawValue)
+                                viewModel.onResult(barcode.rawValue)
                             })
                         }
 
@@ -93,24 +112,5 @@ class CameraXFragment: Fragment() {
                 }, ContextCompat.getMainExecutor(it)
             )
         }
-    }
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        _binding = FragmentCameraXBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        startCamera()
-
-        cameraExecutor = Executors.newSingleThreadExecutor()
-    }
-
-    override fun onDestroyView() {
-        _binding = null
-
-        super.onDestroyView()
     }
 }

@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        CameraXCodelabApp.INSTANCE.router.navigateTo(Screens.MainScreen())
+        CameraXCodelabApp.INSTANCE.router.replaceScreen(Screens.MainScreen())
     }
 
     override fun onResumeFragments() {

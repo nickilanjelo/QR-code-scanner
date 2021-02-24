@@ -20,19 +20,20 @@ class QRCodeAnalyzer(
         val mediaImage = imageProxy.image
         if (mediaImage != null) {
             val image = InputImage.fromMediaImage(mediaImage, imageProxy.imageInfo.rotationDegrees)
-            scanner.process(image).addOnSuccessListener { barcodes ->
-                Log.d("myTag", "processing images")
-                val barcode = barcodes.firstOrNull {
-                    it.format == Barcode.FORMAT_QR_CODE
-                }
+            scanner.process(image)
+                .addOnSuccessListener { barcodes ->
+                    Log.d("myTag", "processing images")
+                    val barcode = barcodes.firstOrNull {
+                        it.format == Barcode.FORMAT_QR_CODE
+                    }
 
-                barcode?.let {
-                    listener.invoke(it)
+                    barcode?.let {
+                        listener.invoke(it)
+                    }
+                }
+                .addOnCompleteListener {
                     imageProxy.close()
                 }
-            }.addOnFailureListener {
-                it.printStackTrace()
-            }
         }
     }
 }

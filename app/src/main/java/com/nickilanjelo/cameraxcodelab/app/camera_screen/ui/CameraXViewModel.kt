@@ -1,9 +1,7 @@
 package com.nickilanjelo.cameraxcodelab.app.camera_screen.ui
 
 import androidx.camera.core.ImageProxy
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.github.terrakok.cicerone.Router
 import com.nickilanjelo.cameraxcodelab.app.camera_screen.analyzer.QRCodeAnalyzer
 import kotlinx.coroutines.delay
@@ -14,9 +12,14 @@ class CameraXViewModel(
     private val resultKey: String?
 ) : ViewModel() {
 
+    private val _scannedString: MutableLiveData<String> = MutableLiveData()
+    val scannedString: LiveData<String>
+        get() = _scannedString
+
     fun onResult(result: String?) {
+        _scannedString.value = result
+
         viewModelScope.launch {
-            delay(2000)
             resultKey?.let {
                 router.sendResult(resultKey, result ?: "")
             }

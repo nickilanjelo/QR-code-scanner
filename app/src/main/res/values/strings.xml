@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">CameraXCodelab</string>
+    <string name="btn_start_scan">Start scan</string>
 </resources>
