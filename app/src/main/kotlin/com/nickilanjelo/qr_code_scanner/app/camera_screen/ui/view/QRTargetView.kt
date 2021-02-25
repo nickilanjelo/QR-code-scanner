@@ -15,10 +15,11 @@ class QRTargetView @JvmOverloads constructor(
 ) : View(context, attrs, defStyle) {
 
     private val paintWidth = 20f
+    private val radius = 30f
     private val transparentGrayPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.FILL
         color = Color.GRAY
-        alpha = 200
+        alpha = 127
     }
     private val transparentPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.FILL
@@ -29,7 +30,9 @@ class QRTargetView @JvmOverloads constructor(
         style = Paint.Style.STROKE
         strokeWidth = paintWidth
         color = ContextCompat.getColor(context, R.color.purple_500)
-        xfermode = PorterDuffXfermode(PorterDuff.Mode.SRC_IN)
+        xfermode = PorterDuffXfermode(PorterDuff.Mode.SRC)
+        pathEffect = CornerPathEffect(radius)
+        strokeCap = Paint.Cap.ROUND
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
@@ -58,7 +61,8 @@ class QRTargetView @JvmOverloads constructor(
             canvas.drawRect(bigRect, transparentGrayPaint)
 
             val rect = Rect(x, y, x + viewSize, y + viewSize)
-            canvas.drawRect(rect, transparentPaint)
+            val rectF = RectF(rect)
+            canvas.drawRoundRect(rectF, radius, radius, transparentPaint)
 
             val cornersPath = Path().also {
                 it.moveTo(
